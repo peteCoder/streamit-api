@@ -39,16 +39,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField('email address', unique=True)
-    profile_photo = models.ImageField(
-        blank=True,
-        null=False,
-        upload_to='media/profile/'
-    )
-    bio = models.TextField(
-        help_text="Enter not more than 200 words.. ",
-        max_length=200,
-        verbose_name="User bio"
-    )
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
