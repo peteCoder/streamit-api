@@ -1,1 +1,1 @@
-web: pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && gunicorn mysite.wsgi
+web: python manage.py migrate && gunicorn streamit.wsgi
