@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn streamit.wsgi
+web: gunicorn 'streamit.wsgi'
