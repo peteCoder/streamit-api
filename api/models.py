@@ -48,6 +48,16 @@ class Video(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='author')
     date_uploaded = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    video_like = models.ManyToManyField(User, related_name='likes')
+    approved = models.BooleanField(default=False)
+    
+    @property
+    def likes(self):
+        users = self.video_like.all()
+        return users.count()
+    
+    
+    
     
     @property
     def _category(self):

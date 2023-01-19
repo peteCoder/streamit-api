@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from users.models import CustomUser as User
 from api.models import Video, VideoCategory, Profile
 from .serializers import UserSerializer, ProfileSerializer, VideoSerializer, VideoCategorySerializer
-
+from django.forms import model_to_dict
 
 
 # Create your views here.
@@ -171,5 +171,25 @@ def video_category_detail(request, *args, **kwargs):
         video_cat.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+# Like functionality
+@api_view(['POST'])
+def like_video(request, *args, **kwargs):
+
+    user_id = request.data.get('user_id', None)
+    video_id = request.data.get('video_id', None)
     
+    if video_id is not None and user_id is not None:
+        try:
+            video = get_object_or_404(Video, pk=int(video_id))
+            user = get_object_or_404(User, pk=int(user_id))
+            if video.video_like.contains(user):
+                video.video_like.remove(user)
+                return Response({"detail": f"{user.email} unliked {video.title}"})
+            else:
+                video.video_like.add(user)
+                return Response({"detail": f"{user.email} liked {video.title}"})
+        except:
+            return Response({"details": "Invalid video_id and user_id"})
     
+    return Response({"details": "User Id or Video Id cannot be null"})
