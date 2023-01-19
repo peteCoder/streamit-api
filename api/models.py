@@ -8,6 +8,7 @@ from users.models import CustomUser as User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=40, blank=True, null=False)
     first_name = models.CharField(max_length=30, blank=True, null=False)
     last_name = models.CharField(max_length=30, blank=True, null=False)
     profile_photo = models.ImageField(
@@ -20,6 +21,10 @@ class Profile(models.Model):
         max_length=200,
         verbose_name="User bio"
     )
+    country = models.CharField(max_length=100, blank=True, null=False)
+    gender = models.CharField(max_length=30, blank=True, null=False)
+    phone_number = models.CharField(max_length=20, blank=True, null=False)
+    
 
     def __str__(self):
         return self.first_name + " | " + self.user.email
@@ -63,7 +68,7 @@ class Video(models.Model):
         return author
 
     def __str__(self):
-        return self.author.email
+        return self.author.user.email
 
 
 @receiver(post_save, sender=User)

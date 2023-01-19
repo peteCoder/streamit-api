@@ -1,4 +1,8 @@
-from django.urls import path
+from django.urls import path, include
+from . import views
 
 
-urlpatterns = []
+urlpatterns = [
+    path('auth-token/', views.CustomAuthToken.as_view(), name="user-token"),
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+]
