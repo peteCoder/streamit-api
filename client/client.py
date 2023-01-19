@@ -1,15 +1,18 @@
 import requests
+import json
 
-# url = 'http://127.0.0.1:8000/users/password_reset/'
-url = 'http://127.0.0.1:8000/users/password_reset/?token=d5210d82014c3e899669a743c2'
+url = 'http://127.0.0.1:8000/users/change-password/'
+# url = 'http://127.0.0.1:8000/users/password_reset/confirm/'
 
 
-payload = {'email': 'james@gmail.com'}
-# headers = {
-#     'Content-Type': 'application/json',
-#     'Authorization': ''
-# }
-r = requests.get(url)
+payload = {'old_password': 'petertalk', 'new_password': 'propensity'}
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Token afbf91b454b50cc56637d34b77133fef3c6604da'
+}
+r = requests.put(url, data=json.dumps(payload), headers=headers)
 
-if r.status_code == 200:
-    print(r.json())
+print(r.json())
+# if r.status_code == 200:
+#     print(r.json())
+    
