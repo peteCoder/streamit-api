@@ -12,7 +12,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields =  ['id', 'title', 'thumbnail', 'author_', '_category', 'date_uploaded', 'last_modified']
+        fields =  ['id', 'title', 'thumbnail', 'author_', '_category', 'likes', 'date_uploaded', 'last_modified']
 
         
 class UserSerializer(serializers.ModelSerializer):

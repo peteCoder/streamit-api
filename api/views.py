@@ -1,11 +1,10 @@
 from rest_framework.response import Response 
 from rest_framework import status
 from rest_framework.decorators import api_view
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from users.models import CustomUser as User
 from api.models import Video, VideoCategory, Profile
 from .serializers import UserSerializer, ProfileSerializer, VideoSerializer, VideoCategorySerializer
-from django.forms import model_to_dict
 
 
 # Create your views here.
@@ -177,7 +176,7 @@ def video_category_detail(request, *args, **kwargs):
 def like_video(request, *args, **kwargs):
 
     user_id = request.data.get('user_id', None)
-    video_id = request.data.get('video_id', None)
+    video_id = kwargs['pk']
     
     if video_id is not None and user_id is not None:
         try:

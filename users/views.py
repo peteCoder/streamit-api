@@ -13,7 +13,6 @@ class ChangePasswordView(generics.UpdateAPIView):
     An endpoint for changing password.
     """
     serializer_class = ChangePasswordSerializer
-    # model = User
     permission_classes = (IsAuthenticated,)
     
 
