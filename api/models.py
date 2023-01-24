@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from users.models import CustomUser as User
+
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
+from cloudinary_storage.validators import validate_video
 # Create your models here.
 
 
@@ -13,25 +16,38 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=30, blank=True, null=False)
     profile_photo = models.ImageField(
         blank=True,
-        null=False,
+        null=True,
         upload_to='media/profile/'
     )
     bio = models.TextField(
         help_text="Enter not more than 200 words.. ",
         max_length=200,
-        verbose_name="User bio"
+        verbose_name="User bio",
+        blank=True,
+        null=False
     )
     country = models.CharField(max_length=100, blank=True, null=False)
     gender = models.CharField(max_length=30, blank=True, null=False)
     phone_number = models.CharField(max_length=20, blank=True, null=False)
     
+    @property
+    def user_details(self):
+        user = self.user
+        user_info = {
+            'id': user.id,
+            'email': user.email,
+            'is_superuser': user.is_superuser,
+            'is_active': user.is_active,
+            'date_joined': user.date_joined
+        }
+        return user_info
 
     def __str__(self):
         return self.first_name + " | " + self.user.email
 
 
 class VideoCategory(models.Model):
-    name = models.CharField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=50, blank=False, null=False, unique=True)
 
     def __str__(self):
         return self.name
@@ -41,14 +57,22 @@ class Video(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
     category = models.ForeignKey(VideoCategory, on_delete=models.CASCADE, related_name='videos')
     thumbnail = models.ImageField(
-        blank=True,
+        blank=False,
         null=False,
-        upload_to='media/video/'
+        upload_to='thumbnail/'
     )
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='author')
+    video_file = models.FileField(
+        'Video file',
+        blank=False, 
+        null=False, upload_to='videos/', 
+        storage=VideoMediaCloudinaryStorage(), 
+        validators=[validate_video]
+    )
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='videos_uploaded')
     date_uploaded = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    video_like = models.ManyToManyField(User, related_name='likes')
+    video_like = models.ManyToManyField(User, related_name='likes', blank=True)
+    favourites = models.ManyToManyField(User, related_name='favourites', blank=True)
     approved = models.BooleanField(default=False)
     
     @property

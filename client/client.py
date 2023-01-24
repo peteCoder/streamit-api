@@ -6,10 +6,10 @@ import json
 # url = "http://127.0.0.1:8000/api/videos/1/likes/"
 url = 'http://127.0.0.1:8000/api/user/auth-token/'
 
-payload = {'username': 'peter@gmail.com', 'password':'propensity'}
+payload = {'username': 'love@gmail.com', 'password':'propensity'}
 headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Token afbf91b454b50cc56637d34b77133fef3c6604da'
+    'Authorization': 'Token e4a9f5a38324352b1d9c666da61aafdd70642e44'
 }
 r = requests.post(url, data=payload)
 

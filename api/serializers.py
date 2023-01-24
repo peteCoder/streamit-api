@@ -12,10 +12,12 @@ class ChangePasswordSerializer(serializers.Serializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields =  ['id', 'title', 'thumbnail', 'author_', '_category', 'likes', 'date_uploaded', 'last_modified']
+        fields =  ['id', 'title', 'thumbnail', 'author_', 'video_file', '_category', 'likes', 'date_uploaded', 'last_modified']
 
         
 class UserSerializer(serializers.ModelSerializer):
+    
+    password2 = serializers.CharField(write_only=True, required=True)
     
     class Meta:
         model = User
@@ -24,15 +26,37 @@ class UserSerializer(serializers.ModelSerializer):
             'is_superuser', 
             'is_active', 
             'date_joined',
-            'last_login'
+            'password',
+            'password2',
         ]
+        extra_kwargs = {
+            'password': {
+                'write_only': True,
+                
+            },
+            'password2': {
+                'write_only': True,
+                
+            }
+        }
+        
+    def save(self):
+        user = User(email=self.validated_data['email'])
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Password must match'})
+        else:
+            user.set_password(password)
+            user.save()
+            return user
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    author = VideoSerializer(many=True, read_only=True)
+    videos_uploaded = VideoSerializer(many=True, read_only=True)
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['user_details', 'username', 'first_name', 'last_name', 'profile_photo', 'bio', 'videos_uploaded', 'country', 'gender', 'phone_number']
 
 
 
