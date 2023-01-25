@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["*", "web-production-53f8.up.railway.app"]
+ALLOWED_HOSTS = ["*", "web-production-93c3.up.railway.app"]
 
 # Application definition
 
