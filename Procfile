@@ -1,1 +1,1 @@
-web: gunicorn 'streamit.wsgi'
+web: gunicorn 'streamit.wsgi' && RUN sudo apt-get install libmagic1
