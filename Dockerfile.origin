@@ -1,6 +1,6 @@
 # Use the `python:3.7` as a source image from the Amazon ECR Public Gallery
 # We are not using `python:3.7.2-slim` from Dockerhub because it has put a  pull rate limit. 
-FROM python:3.7.2-slim
+FROM python:3.11.1
 
 # EXPOSE 8080
 
