@@ -1,4 +1,6 @@
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
 from .views import (
     user_list, 
     user_detail, 
@@ -9,10 +11,24 @@ from .views import (
     video_detail, 
     video_list,
     like_video,
-    favourite_video
+    favourite_video,
+    
+    ActorViewSet,
+    GenreViewSet,
+    MoodViewSet,
+    DirectorViewSet,
+    PlayListViewSet
 )
+
 from users.views import CustomAuthToken, ChangePasswordView
 
+
+router = DefaultRouter()
+router.register(r'actor', ActorViewSet, basename='actor')
+router.register(r'playlist', PlayListViewSet, basename='playlist')
+router.register(r'mood', MoodViewSet, basename='mood')
+router.register(r'director', DirectorViewSet, basename='director')
+router.register(r'genre', GenreViewSet, basename='genre')
 
 urlpatterns = [
     path('user/auth-token/', CustomAuthToken.as_view(), name="user-token"),
@@ -32,4 +48,7 @@ urlpatterns = [
     
     path('video/category/', video_category_list, name='video_category_list'),
     path('video/category/<int:pk>/', video_category_detail, name='video_category_detail'),
+
+    
 ]
+urlpatterns += router.urls

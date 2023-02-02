@@ -1,6 +1,16 @@
 from rest_framework import serializers
 from users.models import CustomUser as User
-from .models import Profile, Video, VideoCategory
+from .models import (
+    Profile, 
+    Video, 
+    VideoCategory, 
+    PlayList,
+    Mood,
+    Director,
+    Actor,
+    Genre
+)
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     """
@@ -9,10 +19,56 @@ class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
 
+class PlayListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlayList
+        fields = ['id', 'title', '_videos']
+        
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ['id', 'name', '_videos']
+
+class MoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mood
+        fields = ['id', 'name', '_videos']
+        
+class ActorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ['id', 'name', 'bio', 'image', '_videos']
+        
+class DirectorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Director
+        fields = ['id', 'name', '_videos']
+        
+
+
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields =  ['id', 'title', 'thumbnail', 'author_', 'video_file', '_category', 'likes', 'date_uploaded', 'last_modified']
+        fields =  [
+            'id', 
+            'title', 
+            'mobile_thumbnail', 
+            'desktop_thumbnail', 
+            'mobile_banner', 
+            'desktop_banner', 
+            'description',
+            'video_link', 
+            '_category', 
+            'likes', 
+            'actors',
+            'playlist',
+            'rating',
+            'mood',
+            'genres',
+            'publish',
+            'date_uploaded', 
+            'last_modified'
+        ]
 
         
 class UserSerializer(serializers.ModelSerializer):
@@ -53,10 +109,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    videos_uploaded = VideoSerializer(many=True, read_only=True)
     class Meta:
         model = Profile
-        fields = ['user_details', 'username', 'first_name', 'last_name', 'profile_photo', 'bio', 'videos_uploaded', 'country', 'gender', 'phone_number']
+        fields = [
+            'user_details', 
+            'username', 
+            'first_name', 
+            'last_name', 
+            'profile_photo', 
+            'bio', 
+            'favourite_videos', 
+            'country', 
+            'gender', 
+            'phone_number'
+        ]
+        
 
 
 
@@ -64,4 +131,4 @@ class VideoCategorySerializer(serializers.ModelSerializer):
     videos = VideoSerializer(many=True, read_only=True)
     class Meta:
         model = VideoCategory
-        fields = '__all__' # ['name', 'videos'] 
+        fields = ['id', 'name', 'videos'] 

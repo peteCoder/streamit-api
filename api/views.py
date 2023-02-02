@@ -3,11 +3,35 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from users.models import CustomUser as User
-from api.models import Video, VideoCategory, Profile
-from .serializers import UserSerializer, ProfileSerializer, VideoSerializer, VideoCategorySerializer
+from api.models import (
+    Video, 
+    VideoCategory, 
+    Profile, 
+    Actor, 
+    Genre,
+    Mood,
+    PlayList,
+    Director
+    
+)
+# All serializer classes
+from .serializers import (
+    UserSerializer, 
+    ProfileSerializer, 
+    VideoSerializer, 
+    VideoCategorySerializer,
+    ActorSerializer,
+    GenreSerializer,
+    MoodSerializer,
+    PlayListSerializer,
+    DirectorSerializer
+)
+
 from rest_framework.decorators import authentication_classes
 from rest_framework.authentication import TokenAuthentication
 
+
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -197,20 +221,44 @@ def like_video(request, *args, **kwargs):
 @authentication_classes([TokenAuthentication])
 def favourite_video(request, *args, **kwargs):
 
-    user_id = request.data.get('user_id', None)
+    profile_id = request.data.get('profile_id', None)
     video_id = kwargs['pk']
     
-    if video_id is not None and user_id is not None:
+    if video_id is not None and profile_id is not None:
         try:
             video = get_object_or_404(Video, pk=int(video_id))
-            user = get_object_or_404(User, pk=int(user_id))
-            if video.favourites.contains(user):
-                video.favourites.remove(user)
-                return Response({"detail": f"{user.email} removed {video.title} from list"})
+            profile = get_object_or_404(Profile, pk=int(profile_id))
+            if video.favourites.contains(profile):
+                video.favourites.remove(profile)
+                return Response({"detail": f"{profile.user.email} removed {video.title} from list"})
             else:
-                video.favourites.add(user)
-                return Response({"detail": f"{user.email} added {video.title} to list"})
+                video.favourites.add(profile)
+                return Response({"detail": f"{profile.user.email} added {video.title} to list"})
         except:
-            return Response({"details": "Invalid video_id and user_id"})
+            return Response({"details": "Invalid video_id and profile_id"})
     
-    return Response({"details": "User Id or Video Id cannot be null"})
+    return Response({"details": "Profile Id or Video Id cannot be null"})
+
+
+class ActorViewSet(viewsets.ModelViewSet):
+    queryset = Actor.objects.all()
+    serializer_class = ActorSerializer
+    
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    
+
+class MoodViewSet(viewsets.ModelViewSet):
+    queryset = Mood.objects.all()
+    serializer_class = MoodSerializer
+    
+class PlayListViewSet(viewsets.ModelViewSet):
+    queryset = PlayList.objects.all()
+    serializer_class = PlayListSerializer
+    
+
+class DirectorViewSet(viewsets.ModelViewSet):
+    queryset = Director.objects.all()
+    serializer_class = DirectorSerializer
+    
