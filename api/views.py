@@ -77,7 +77,7 @@ def user_detail(request, *args, **kwargs):
 
 # ProfileAPIView
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def profile_list(request):
     if request.method == 'GET':
         profiles = Profile.objects.all()
@@ -87,7 +87,7 @@ def profile_list(request):
     
 
 @api_view(['PUT', 'DELETE', 'GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def profile_detail(request, *args, **kwargs):
     try:
         profile = get_object_or_404(Profile, pk=kwargs['pk'])
@@ -112,7 +112,7 @@ def profile_detail(request, *args, **kwargs):
 
 # VideoAPIView
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def video_list(request):
     if request.method == 'GET':
         videos = Video.objects.all()
@@ -131,7 +131,7 @@ def video_list(request):
         
 
 @api_view(['PUT', 'DELETE', 'GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def video_detail(request, *args, **kwargs):
     try:
         video = get_object_or_404(Video, pk=kwargs['pk'])
@@ -156,7 +156,7 @@ def video_detail(request, *args, **kwargs):
     
 # VideoCategoryAPIView
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def video_category_list(request):
     if request.method == 'GET':
         videos_cat = VideoCategory.objects.all()
@@ -173,7 +173,7 @@ def video_category_list(request):
 
 
 @api_view(['PUT', 'DELETE', 'GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def video_category_detail(request, *args, **kwargs):
     try:
         video_cat = get_object_or_404(VideoCategory, pk=kwargs['pk'])
@@ -198,7 +198,7 @@ def video_category_detail(request, *args, **kwargs):
 
 # Like functionality
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def like_video(request, *args, **kwargs):
 
     user_id = request.data.get('user_id', None)
@@ -221,7 +221,7 @@ def like_video(request, *args, **kwargs):
 
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def favourite_video(request, *args, **kwargs):
 
     profile_id = request.data.get('profile_id', None)
@@ -246,27 +246,27 @@ def favourite_video(request, *args, **kwargs):
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
 
 class MoodViewSet(viewsets.ModelViewSet):
     queryset = Mood.objects.all()
     serializer_class = MoodSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
 class PlayListViewSet(viewsets.ModelViewSet):
     queryset = PlayList.objects.all()
     serializer_class = PlayListSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
 
 class DirectorViewSet(viewsets.ModelViewSet):
     queryset = Director.objects.all()
     serializer_class = DirectorSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
