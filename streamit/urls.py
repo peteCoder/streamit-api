@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib import admin
 
+admin.site.site_header  =  "TSL Nigeria Administration"  
+admin.site.site_title  =  "TSL Nigeria"
+admin.site.index_title  =  "DASHBOARD"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
