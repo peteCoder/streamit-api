@@ -383,6 +383,20 @@ Expected Request Body:
   "image":"image"
 }
 ```
+
+Expected Response Body:
+```json
+{
+    "id": 2,
+    "name": "Matilda",
+    "bio": "I am Matilda. And you?",
+    "image": null,
+    "_videos": []
+}
+```
+
+The `_videos` attribute is not modifiable, meaning you cannot change its content. The `_video` attribute is a list of videos acted by the specified actor.
+
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
@@ -390,13 +404,117 @@ Note that when sending a POST request to a upload an image or video file, it is 
 You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
 
 ```json
+  {
+    "id":"number",
+    "name":"string",
+    "bio": "string",
+    "image":"image"
+  }
+```
 
+## POST, GET /director/
+Expected Request Body:
+```json
+{
+  "id":"number",
+  "name":"string",
+  "bio": "string",
+  "image":"image"
+}
+```
+
+Expected Response Body:
+```json
+{
+    "id": 2,
+    "name": "Mr. James",
+    "bio": "I am James.",
+    "image": null,
+    "_videos": []
+}
+```
+
+The `_videos` attribute is not modifiable, meaning you cannot change its content. The `_video` is a list of videos directed by the specified director.
+
+Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
+
+
+## GET, PUT, PATCH, DELETE /director/:id/
+You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+
+```json
+  {
+    "id":"number",
+    "name":"string",
+    "bio": "string",
+    "image":"image"
+  }
+```
+
+## POST, GET /mood/
+Expected Request Body:
+```json
+{
+  "id":"number",
+  "name":"string"
+}
+```
+
+Expected Response Body:
+```json
+{
+    "id": 2,
+    "name": "Exciting",
+    "_videos": []
+}
+```
+
+The `_videos` attribute is not modifiable, meaning you cannot change its content. The `_video` is a list of videos that fall under this mood.
+
+Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
+
+
+## GET, PUT, PATCH, DELETE /mood/:id/
+You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+
+```json
+  {
+    "id":"number",
+    "name":"string"
+  }
 ```
 
 
+## POST, GET /playlist/
+Expected Request Body:
+```json
+{
+  "id":"number",
+  "name":"string"
+}
+```
+
+Expected Response Body:
+```json
+{
+    "id": 2,
+    "name": "My Playlist",
+    "_videos": []
+}
+```
+
+The `_videos` attribute is not modifiable, meaning you cannot change its content. The `_video` is a list of videos that fall under this playlist.
+
+Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
+## GET, PUT, PATCH, DELETE /playlist/:id/
+You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
 
-
-
+```json
+  {
+    "id":"number",
+    "name":"string"
+  }
+```
 

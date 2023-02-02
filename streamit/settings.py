@@ -178,11 +178,9 @@ CSRF_TRUSTED_ORIGINS = ['https://web-production-93c3.up.railway.app']
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "api.errors.api_exception_handler",
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+        'rest_framework.authentication.TokenAuthentication', 
     ],
 }
-
-
 
 
 # EMAIL BACKEND
@@ -231,3 +229,4 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
