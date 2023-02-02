@@ -172,6 +172,7 @@ AUTH_PASSWORD_VALIDATORS = [
 #     'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'my-manifest-directory'),
 # }
 
+CSRF_TRUSTED_ORIGINS = ['https://web-production-93c3.up.railway.app']
 
 
 REST_FRAMEWORK = {
