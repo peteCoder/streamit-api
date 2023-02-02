@@ -2,7 +2,7 @@
 
 ## Welcome to TSL Nigeria API.
 
-The API has a couple of endpoints that gives you access to the database. The base URL allows you to make requests along side sub-endpoints.
+The API has a couple of endpoints that gives you access to the database. The base URL allows you to make requests along side sub-endpoints or paths.
 
 ### Base URL
 
@@ -16,58 +16,12 @@ Note that every endpoint must have an ending slash. This shows that it is an abs
 
 This API gives you access to create and authenticate users, add and remove videos, categories, like videos, add videos to favourites, list and display videos and categories, user profiles and details, et cetera.
 
-# POST /user/auth-token/
-
-The above is used to authenticate existing users. Please note that this endpoint does not accept a GET request.
-
-```
-{Base_Url}/user/auth-token/
-```
-
-Inorder to make a request, the user must send in a json object. He should ensure that these json objects are properly stringified in the following format, having the following keys:
-
-```json
-{
-  "username": "validemail@gmail.com",
-  "password": "validpassword"
-}
-```
-
-Keys: `username` and `password`.
-The `username` key requires the email of an existing user.
-The `password` key requires a valid password.
-
-Both `username` and `password` feilds are required.
-If a request is sent without the above two fields, a response is returned telling the user that both fields are required.
-
-## Expected Response
-
-A JWT Token will be generated as a result of your request in this format:
-
-```json
-{
-  "token": "afbf91b454b50cc56637d34b77133fef3c6604da",
-  "user_id": 1,
-  "email": "peter@gmail.com"
-}
-```
-
-Keys: token, user_id, email.
-
-The above token example should be included in the `Authorization` header in order to make subsequent requests. Without the token given, an exception of `UnAuthorized user` will be raised.
-
-If either the password or username (email) entered is inaccurate, a non_field_error is raised.
-
-`{'non_field_errors': ['Unable to log in with provided credentials.']}`
-
-You can customize the error however way you would wish in any client side application like React, Angular or Vue.
-
 # POST, GET - /user/
 
-Here, you can retrieve, create, and delete users from the database. Although you should note that each user is conected to a profile object. When a user is deleted, the profile will be deleted automatically.
+Here, you can retrieve, create, and delete users from the database. Although you should note that each user is conected to a profile object i.e when a user is deleted, the profile will be deleted automatically. When a user is created on the otherhand, a profile is created too.
 
 The required fields necessary to create a user are `email`, `password` and `password2`.
-The password2 field is used to compare the user password to see if they match.
+The `password2` field is used to compare the users' passwords to see if they match.
 
 ```
 {Base_Url}/user/
@@ -113,19 +67,6 @@ You will get this success message when a user is created:
 }
 ```
 
-# PUT - /user/change-password/
-
-Here, the password can be changed via the above endpoint.
-This change must be made via http headers - i.e. the `Authorization` header.
-The parameters that should be provided are as follows:
-
-####
-
-```json
-{ "old_password": "password", "new_password": "password2" }
-```
-
-#### old_password: string; new_password: string
 
 # GET, DELETE - /user/:id/
 
@@ -163,6 +104,69 @@ A GET request on the other hand fetches you that single user as follows:
   "date_joined": "2023-01-21T05:45:39.075086Z"
 }
 ```
+
+
+
+# POST /user/auth-token/
+
+The above is used to authenticate existing users. Please note that this endpoint does not allow a GET request. After a user has been created, this endpoint is used to retrieve the user's `Auth Token` that is used to authenticate the user. The client do not need to authenticate before accessing this endpoint.
+
+```
+{Base_Url}/user/auth-token/
+```
+
+Inorder to make a request, the user must send in a json object. He should ensure that these json objects are properly stringified in the following format, having the following keys and values:
+
+```json
+{
+  "username": "validemail@gmail.com",
+  "password": "validpassword"
+}
+```
+
+Keys: `username` and `password`.
+The `username` key requires the email of an existing user.
+The `password` key requires a valid password.
+
+Both `username` and `password` feilds are required.
+If a request is sent without the above two fields, a response is returned telling the user that both fields are required.
+
+## Expected Response
+
+A JWT Token will be generated as a result of your request in this format:
+
+```json
+{
+  "token": "afbf91b454b50cc56637d34b77133fef3c6604da",
+  "user_id": 1,
+  "email": "peter@gmail.com"
+}
+```
+
+Keys: token, user_id, email.
+
+The above token example should be included in the `Authorization` header in order to make subsequent requests. Without the token given, an exception of `UnAuthorized user` will be raised.
+
+If either the password or username (email) entered is inaccurate, a `non_field_error` is raised.
+
+`{'non_field_errors': ['Unable to log in with provided credentials.']}`
+
+You can customize the error however way you would wish in any client-side application like React, Angular or Vue.
+
+
+# PUT - /user/change-password/
+
+Here, the password can be changed via the above endpoint.
+This change must be made via http headers - i.e. the `Authorization` header.
+The parameters that should be provided are as follows:
+
+####
+
+```json
+{ "old_password": "password", "new_password": "password2" }
+```
+
+#### old_password: string; new_password: string
 
 # GET - /profile/
 
@@ -281,9 +285,10 @@ The above gives you the array (or list) of videos and their respected a respecti
 ```
 
 When sending a POST request to a upload a video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
-A typical POST request can be sent using the following format:
+A typical POST request can be sent in the following format:
 
 ```json
+{
 "title":"string",
 "category":"id",
 "age_rating":"number",
@@ -300,14 +305,14 @@ A typical POST request can be sent using the following format:
 "description":"string",
 "author":"id",
 "publish":"bool",
-
+}
 ```
 
 # How to Implement User Feedback Functionality
 
-The goal of every commercial application out is to serve users. How we know our users
-are satisfied with our content is when they give us a feedback on how our app benefits them.
-The most viable and effective way to get user feed back is when users `like` our posts or add a few of them to a list of favourites.
+The goal of every commercial application is to serve and satisfy users. How we know our users
+are satisfied with our content is when they give us feedback on how our app benefits them.
+The most common, viable and effective way to get users' feedback is when they `like` our video posts or add a few of them to their list of favourites.
 
 ## POST /video/:id/likes/
 
@@ -320,7 +325,7 @@ Here, you are only required to send the `user_id` as follows:
 ```
 
 Yes, it is that simple! Sending a simple POST request with the above json body will do.
-How we are able to determine which video was liked is in the url. The `:id` is a number that represents the
+How we are able to determine which video was liked is in the url. The `:id` parameter is a number that represents the
 `video_id`. By specifying a numerical value in the url helps identify the video a particular user likes.
 If the `user_id` and the `video_id` exists, the state of the user's `like` instance changes. Either of the following
 responses are gotten from our API depending on the state of the user's like instance.
@@ -344,7 +349,7 @@ an `invalid video and user id` response is sent back.
 }
 ```
 
-A video can also be added to users' `favourites` using the convention.
+A video can also be added to users' `favourites` using the same convention.
 
 ## POST /video/:id/favourites/
 
@@ -377,7 +382,6 @@ The following responses are gotten from our API depending on the state of the us
 Expected Request Body:
 ```json
 {
-  "id":"number",
   "name":"string",
   "bio": "string",
   "image":"image"
@@ -405,7 +409,6 @@ You can perform the above http method operations to an individual Actor instance
 
 ```json
   {
-    "id":"number",
     "name":"string",
     "bio": "string",
     "image":"image"
@@ -416,7 +419,6 @@ You can perform the above http method operations to an individual Actor instance
 Expected Request Body:
 ```json
 {
-  "id":"number",
   "name":"string",
   "bio": "string",
   "image":"image"
@@ -440,11 +442,10 @@ Note that when sending a POST request to a upload an image or video file, it is 
 
 
 ## GET, PUT, PATCH, DELETE /director/:id/
-You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+You can perform the above http method operations to an individual Director instance given the actor `id` specified in the endpoint or url.
 
 ```json
   {
-    "id":"number",
     "name":"string",
     "bio": "string",
     "image":"image"
@@ -475,7 +476,7 @@ Note that when sending a POST request to a upload an image or video file, it is 
 
 
 ## GET, PUT, PATCH, DELETE /mood/:id/
-You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+You can perform the above http method operations to an individual Mood instance given the actor `id` specified in the endpoint or url.
 
 ```json
   {
@@ -489,7 +490,6 @@ You can perform the above http method operations to an individual Actor instance
 Expected Request Body:
 ```json
 {
-  "id":"number",
   "name":"string"
 }
 ```
@@ -509,7 +509,7 @@ Note that when sending a POST request to a upload an image or video file, it is 
 
 
 ## GET, PUT, PATCH, DELETE /playlist/:id/
-You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+You can perform the above http method operations to an individual PlatList instance given the actor `id` specified in the endpoint or url.
 
 ```json
   {
