@@ -1,6 +1,7 @@
 from rest_framework.response import Response 
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from users.models import CustomUser as User
 from api.models import (
@@ -27,9 +28,6 @@ from .serializers import (
     DirectorSerializer
 )
 
-from rest_framework.decorators import authentication_classes
-from rest_framework.authentication import TokenAuthentication
-
 
 from rest_framework import viewsets
 
@@ -51,8 +49,9 @@ def user_list(request):
         else:
             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
-@authentication_classes([TokenAuthentication])
+
 @api_view(['PUT', 'DELETE', 'GET'])
+@permission_classes([IsAuthenticated])
 def user_detail(request, *args, **kwargs):
     try:
         user = get_object_or_404(User, pk=kwargs['pk'])
@@ -77,8 +76,8 @@ def user_detail(request, *args, **kwargs):
 
 
 # ProfileAPIView
-@authentication_classes([TokenAuthentication])
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def profile_list(request):
     if request.method == 'GET':
         profiles = Profile.objects.all()
@@ -86,8 +85,9 @@ def profile_list(request):
         return Response(serializer.data)
     
     
-@authentication_classes([TokenAuthentication])
+
 @api_view(['PUT', 'DELETE', 'GET'])
+@permission_classes([IsAuthenticated])
 def profile_detail(request, *args, **kwargs):
     try:
         profile = get_object_or_404(Profile, pk=kwargs['pk'])
@@ -111,8 +111,8 @@ def profile_detail(request, *args, **kwargs):
 
 
 # VideoAPIView
-@authentication_classes([TokenAuthentication])
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def video_list(request):
     if request.method == 'GET':
         videos = Video.objects.all()
@@ -127,8 +127,11 @@ def video_list(request):
         else:
             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
         
-@authentication_classes([TokenAuthentication])
+        
+        
+
 @api_view(['PUT', 'DELETE', 'GET'])
+@permission_classes([IsAuthenticated])
 def video_detail(request, *args, **kwargs):
     try:
         video = get_object_or_404(Video, pk=kwargs['pk'])
@@ -152,8 +155,8 @@ def video_detail(request, *args, **kwargs):
     
     
 # VideoCategoryAPIView
-@authentication_classes([TokenAuthentication])
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def video_category_list(request):
     if request.method == 'GET':
         videos_cat = VideoCategory.objects.all()
@@ -170,7 +173,7 @@ def video_category_list(request):
 
 
 @api_view(['PUT', 'DELETE', 'GET'])
-@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def video_category_detail(request, *args, **kwargs):
     try:
         video_cat = get_object_or_404(VideoCategory, pk=kwargs['pk'])
@@ -195,7 +198,7 @@ def video_category_detail(request, *args, **kwargs):
 
 # Like functionality
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def like_video(request, *args, **kwargs):
 
     user_id = request.data.get('user_id', None)
@@ -218,7 +221,7 @@ def like_video(request, *args, **kwargs):
 
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def favourite_video(request, *args, **kwargs):
 
     profile_id = request.data.get('profile_id', None)
@@ -243,22 +246,27 @@ def favourite_video(request, *args, **kwargs):
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
+    permission_classes = [IsAuthenticated]
     
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+    permission_classes = [IsAuthenticated]
     
 
 class MoodViewSet(viewsets.ModelViewSet):
     queryset = Mood.objects.all()
     serializer_class = MoodSerializer
+    permission_classes = [IsAuthenticated]
     
 class PlayListViewSet(viewsets.ModelViewSet):
     queryset = PlayList.objects.all()
     serializer_class = PlayListSerializer
+    permission_classes = [IsAuthenticated]
     
 
 class DirectorViewSet(viewsets.ModelViewSet):
     queryset = Director.objects.all()
     serializer_class = DirectorSerializer
+    permission_classes = [IsAuthenticated]
     

@@ -381,14 +381,17 @@ Expected Request Body:
   "name":"string",
   "bio": "string",
   "image":"image"
-
 }
 ```
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
 ## GET, PUT, PATCH, DELETE /actor/:id/
-You can perform the above http method operations to an individual Actor instance specified
+You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
+
+```json
+
+```
 
 
 

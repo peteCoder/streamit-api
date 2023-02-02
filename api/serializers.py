@@ -42,7 +42,7 @@ class ActorSerializer(serializers.ModelSerializer):
 class DirectorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Director
-        fields = ['id', 'name', '_videos']
+        fields = ['id', 'name','bio', 'image', '_videos']
         
 
 
