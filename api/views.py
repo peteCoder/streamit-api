@@ -39,13 +39,17 @@ def user_list(request):
     if request.method == 'GET':
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         data = request.data
         serializer = UserSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({
+                'status_code': 201,
+                'detail': 'User was created successfully.', 
+                'user': serializer.data
+            }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 

@@ -32,6 +32,11 @@ class Profile(models.Model):
     gender = models.CharField(max_length=30, blank=True, null=False)
     phone_number = models.CharField(max_length=20, blank=True, null=False)
     
+    class Meta:
+        verbose_name_plural = "User Profiles"
+        verbose_name = "Profile"
+        
+    
     @property
     def favourite_videos(self):
         videos = self.favourites.all()
@@ -59,6 +64,10 @@ class Actor(models.Model):
     bio = models.TextField(max_length=500, blank=False, null=False)
     image = models.ImageField(upload_to='profile/actors/', blank=False, null=True)
     
+    class Meta:
+        verbose_name_plural = "Actors"
+        verbose_name = "Actor"
+    
     @property
     def _videos(self):
         videos = self.actor_videos.all()
@@ -72,6 +81,10 @@ class Director(models.Model):
     bio = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='profile/director/', blank=False, null=True)
     
+    class Meta:
+        verbose_name_plural = "Directors"
+        verbose_name = "Director"
+    
     @property
     def _videos(self):
         videos = self.video_directed.all()
@@ -82,6 +95,10 @@ class Director(models.Model):
     
 class Mood(models.Model):
     name = models.CharField(max_length=200, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Moods"
+        verbose_name = "Mood"
     
     @property
     def _videos(self):
@@ -93,12 +110,20 @@ class Mood(models.Model):
 
 class VideoCategory(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, unique=True)
+    
+    class Meta:
+        verbose_name_plural = "Video Categories"
+        verbose_name = "Video Category"
 
     def __str__(self):
         return self.name
 
 class PlayList(models.Model):
     title = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    
+    class Meta:
+        verbose_name_plural = "Playlists"
+        verbose_name = "Playlist"
     
     @property
     def _videos(self):
@@ -111,6 +136,10 @@ class PlayList(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, unique=True)
+    
+    class Meta:
+        verbose_name_plural = "Genres"
+        verbose_name = "Genre"
     
     @property
     def _videos(self):
@@ -163,6 +192,10 @@ class Video(models.Model):
     video_like = models.ManyToManyField(User, related_name='likes', blank=True)
     favourites = models.ManyToManyField(Profile, related_name='favourites', blank=True)
     publish = models.BooleanField(default=False)
+    
+    class Meta:
+        verbose_name_plural = "Videos"
+        verbose_name = "Video"
     
     @property
     def actors(self):
