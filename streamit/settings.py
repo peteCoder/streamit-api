@@ -46,14 +46,14 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'djoser',
+    'djoser',
     'django_rest_passwordreset',
     'api',
     'dashboard',
 ]
 
 
-
+ß
 
 
 MIDDLEWARE = [
