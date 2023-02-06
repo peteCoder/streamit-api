@@ -7,6 +7,9 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from api.serializers import ChangePasswordSerializer
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import render
+
+from django.core.mail import send_mail
 
 class ChangePasswordView(generics.UpdateAPIView):
     """
@@ -55,4 +58,17 @@ class CustomAuthToken(ObtainAuthToken):
         })
         
         
+
+def my_email(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
         
+        send_mail(
+            subject,
+            message,
+            'talk2peteresezobor@gmail.com',
+            ['petercodercoder@gmail.com', ],
+            fail_silently=False
+        )
+    return render(request, 'email/user_reset_password.html', {})
