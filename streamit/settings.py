@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 ]
 
 
-ß
 
 
 MIDDLEWARE = [
