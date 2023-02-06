@@ -10,6 +10,6 @@ urlpatterns = [
     # Djoser
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    path('email/', views.my_email, name='email')
+    # path('email/', views.my_email, name='email')
 ]
 
