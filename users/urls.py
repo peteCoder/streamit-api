@@ -11,7 +11,7 @@ urlpatterns = [
     # Djoser
     path('auth/', include('djoser.urls')),
     # path('auth/', include('djoser.urls.jwt')), 
-    path('', include('djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls.authtoken')),
     path('email/', views.my_email, name='email')
 ]
 

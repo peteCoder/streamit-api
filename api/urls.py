@@ -20,7 +20,7 @@ from .views import (
     PlayListViewSet
 )
 
-from users.views import CustomAuthToken, ChangePasswordView
+# from users.views import CustomAuthToken, ChangePasswordView
 
 
 router = DefaultRouter()
@@ -31,9 +31,9 @@ router.register(r'director', DirectorViewSet, basename='director')
 router.register(r'genre', GenreViewSet, basename='genre')
 
 urlpatterns = [
-    path('user/auth-token/', CustomAuthToken.as_view(), name="user-token"),
-    path('user/password-reset/', include('django_rest_passwordreset.urls', namespace='password-reset')),
-    path('user/change-password/', ChangePasswordView.as_view(), name='change-password'),
+    # path('user/auth-token/', CustomAuthToken.as_view(), name="user-token"),
+    # path('user/password-reset/', include('django_rest_passwordreset.urls', namespace='password-reset')),
+    # path('user/change-password/', ChangePasswordView.as_view(), name='change-password'),
     path('user/', user_list, name='user_list'),
     path('user/<int:pk>/', user_detail, name='user_detail'),
     

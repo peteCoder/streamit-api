@@ -18,16 +18,19 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from api.views import home
 
 admin.site.site_header  =  "TSL Nigeria Administration"  
 admin.site.site_title  =  "TSL Nigeria"
 admin.site.index_title  =  "DASHBOARD"
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('', include('dashboard.urls')),
-    path('user/', include('users.urls'))
+    path('user/', include('users.urls')),
+    # Oauth
+    path('oauth/', include('drf_social_oauth2.urls', namespace='drf'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
