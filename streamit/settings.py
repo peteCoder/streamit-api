@@ -102,6 +102,18 @@ DATABASES = {
     }
 }
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'D4imfMoVODfTck00VEWD',
+        'HOST': 'containers-us-west-43.railway.app',
+        'PORT': '6946',
+    }
+}
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_METHODS = [
@@ -130,16 +142,7 @@ CORS_ALLOW_HEADERS = [
 # CLOUDINARY_API_KEY = '378958482152642'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'CPQDPAAKPniBYKATqywl',
-#         'HOST': 'containers-us-west-131.railway.app',
-#         'PORT': '7306',
-#     }
-# }
+
 
 # DATABASES = {
 #     'default': {
