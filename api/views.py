@@ -14,7 +14,6 @@ from api.models import (
     Mood,
     PlayList,
     Director
-    
 )
 # All serializer classes
 from .serializers import (
@@ -81,6 +80,7 @@ def user_detail(request, *args, **kwargs):
 
 
 # ProfileAPIView
+# Here Profile Object should be ReadOnly
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def profile_list(request):
@@ -116,90 +116,100 @@ def profile_detail(request, *args, **kwargs):
 
 
 # VideoAPIView
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def video_list(request):
-    if request.method == 'GET':
-        videos = Video.objects.all()
-        serializer = VideoSerializer(videos, many=True)
-        return Response(serializer.data)
-    if request.method == 'POST':
-        data = request.data
-        serializer = VideoSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
+# def video_list(request):
+#     if request.method == 'GET':
+#         videos = Video.objects.all()
+#         serializer = VideoSerializer(videos, many=True)
+#         return Response(serializer.data)
+#     if request.method == 'POST':
+#         data = request.data
+#         serializer = VideoSerializer(data=data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
         
         
         
 
-@api_view(['PUT', 'DELETE', 'GET'])
-@permission_classes([IsAuthenticated])
-def video_detail(request, *args, **kwargs):
-    try:
-        video = get_object_or_404(Video, pk=kwargs['pk'])
-    except Video.DoesNotExist:
-        return Response(serializer.error, status=status.HTTP_404_NOT_FOUND)
+# @api_view(['PUT', 'DELETE', 'GET'])
+# @permission_classes([IsAuthenticated])
+# def video_detail(request, *args, **kwargs):
+#     try:
+#         video = get_object_or_404(Video, pk=kwargs['pk'])
+#     except Video.DoesNotExist:
+#         return Response(serializer.error, status=status.HTTP_404_NOT_FOUND)
     
-    if request.method == 'GET':
-        serializer = VideoSerializer(video)
-        return Response(serializer.data)
-    if request.method == 'PUT':
-        data = request.data
-        serializer = VideoSerializer(video, data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.error, status=status.HTTP_304_NOT_MODIFIED)
-    if request.method == 'DELETE':
-        video.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     if request.method == 'GET':
+#         serializer = VideoSerializer(video)
+#         return Response(serializer.data)
+#     if request.method == 'PUT':
+#         data = request.data
+#         serializer = VideoSerializer(video, data=data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         else:
+#             return Response(serializer.error, status=status.HTTP_304_NOT_MODIFIED)
+#     if request.method == 'DELETE':
+#         video.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
-# VideoCategoryAPIView
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def video_category_list(request):
-    if request.method == 'GET':
-        videos_cat = VideoCategory.objects.all()
-        serializer = VideoCategorySerializer(videos_cat, many=True)
-        return Response(serializer.data)
-    if request.method == 'POST':
-        data = request.data
-        serializer = VideoCategorySerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+# # VideoCategoryAPIView
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
+# def video_category_list(request):
+#     if request.method == 'GET':
+#         videos_cat = VideoCategory.objects.all()
+#         serializer = VideoCategorySerializer(videos_cat, many=True)
+#         return Response(serializer.data)
+#     if request.method == 'POST':
+#         data = request.data
+#         serializer = VideoCategorySerializer(data=data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['PUT', 'DELETE', 'GET'])
-@permission_classes([IsAuthenticated])
-def video_category_detail(request, *args, **kwargs):
-    try:
-        video_cat = get_object_or_404(VideoCategory, pk=kwargs['pk'])
-    except Video.DoesNotExist:
-        return Response(serializer.error, status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'GET':
-        serializer = VideoCategorySerializer(video_cat)
-        return Response(serializer.data)
-    if request.method == 'PUT':
-        data = request.data
-        serializer = VideoCategorySerializer(video_cat, data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.error, status=status.HTTP_304_NOT_MODIFIED)
-    if request.method == 'DELETE':
-        video_cat.delete()
-        return Response({"details": "Video was deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
-    
+# @api_view(['PUT', 'DELETE', 'GET'])
+# @permission_classes([IsAuthenticated])
+# def video_category_detail(request, *args, **kwargs):
+#     try:
+#         video_cat = get_object_or_404(VideoCategory, pk=kwargs['pk'])
+#     except Video.DoesNotExist:
+#         return Response(serializer.error, status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         serializer = VideoCategorySerializer(video_cat)
+#         return Response(serializer.data)
+#     if request.method == 'PUT':
+#         data = request.data
+#         serializer = VideoCategorySerializer(video_cat, data=data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         else:
+#             return Response(serializer.error, status=status.HTTP_304_NOT_MODIFIED)
+#     if request.method == 'DELETE':
+#         video_cat.delete()
+#         return Response({"details": "Video was deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
+
+def hasId(model, id):
+    # Firstly, iterate through all the ids in the model
+    # Secondly, check if id exists in all the list of ids[]
+    # Thirdly, return True if id exists, else return False
+    ids = [instance.id for instance in model]
+    if int(id) in ids:
+        return True
+    else:
+        return False
 
 # Like functionality
 @api_view(['POST'])
@@ -211,9 +221,9 @@ def like_video(request, *args, **kwargs):
     
     if video_id is not None and user_id is not None:
         try:
-            video = get_object_or_404(Video, pk=int(video_id))
-            user = get_object_or_404(User, pk=int(user_id))
-            if video.video_like.contains(user):
+            video = get_object_or_404(Video, pk=video_id)
+            user = get_object_or_404(User, pk=user_id)
+            if hasId(video.video_like.all(), user_id):
                 video.video_like.remove(user)
                 return Response({"detail": f"{user.email} unliked {video.title}"})
             else:
@@ -225,8 +235,9 @@ def like_video(request, *args, **kwargs):
     return Response({"details": "User Id or Video Id cannot be null"})
 
 
+# Favourites functionality
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def favourite_video(request, *args, **kwargs):
 
     profile_id = request.data.get('profile_id', None)
@@ -236,7 +247,7 @@ def favourite_video(request, *args, **kwargs):
         try:
             video = get_object_or_404(Video, pk=int(video_id))
             profile = get_object_or_404(Profile, pk=int(profile_id))
-            if video.favourites.contains(profile):
+            if hasId(video.favourites.all(), profile_id):
                 video.favourites.remove(profile)
                 return Response({"detail": f"{profile.user.email} removed {video.title} from list"})
             else:
@@ -246,6 +257,17 @@ def favourite_video(request, *args, **kwargs):
             return Response({"details": "Invalid video_id and profile_id"})
     
     return Response({"details": "Profile Id or Video Id cannot be null"})
+
+
+class VideoViewSet(viewsets.ModelViewSet):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
+    permission_classes = [IsAuthenticated]
+    
+class VideoCategoryViewSet(viewsets.ModelViewSet):
+    queryset = VideoCategory.objects.all()
+    serializer_class = VideoCategorySerializer
+    permission_classes = [IsAuthenticated]
 
 
 class ActorViewSet(viewsets.ModelViewSet):
@@ -276,7 +298,7 @@ class DirectorViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     
-
+@api_view(['GET'])
 def home(request):
-    return JsonResponse({"details": "Welcome to Streamit API"}, safe=False)
+    return Response({"details": "Welcome to Streamit API"})
     

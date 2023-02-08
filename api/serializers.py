@@ -65,7 +65,7 @@ class VideoSerializer(serializers.ModelSerializer):
             'rating',
             'mood',
             'genres',
-            'publish',
+            'published',
             'date_uploaded', 
             'last_modified'
         ]

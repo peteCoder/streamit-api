@@ -191,7 +191,7 @@ class Video(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     video_like = models.ManyToManyField(User, related_name='likes', blank=True)
     favourites = models.ManyToManyField(Profile, related_name='favourites', blank=True)
-    publish = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
     
     class Meta:
         verbose_name_plural = "Videos"

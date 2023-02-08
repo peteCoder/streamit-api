@@ -13,11 +13,11 @@ def all_videos(videos):
         "genres": video.genres,
         "mood": video.mood,
         "actors": video.actors,
-        "likes": video.likes,
+        "likes": video.likes,  
         "category": video._category,
         "date_uploaded": video.date_uploaded,
         "last_modified": video.last_modified,
-        "approved": video.approved
+        "published": video.published
     } for video in videos]
 
     return my_videos
