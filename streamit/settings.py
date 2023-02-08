@@ -200,6 +200,7 @@ REST_FRAMEWORK = {
     #     'rest_framework.authentication.TokenAuthentication',
     # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
         'drf_social_oauth2.authentication.SocialAuthentication',
     ],
@@ -212,9 +213,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-# SIMPLE_JWT = {
-#     'AUTH_HEADER_TYPES': ('JWT',),
-# }
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
