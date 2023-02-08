@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'rest_framework_simplejwt',
     # 'django_rest_passwordreset',
     'oauth2_provider',
     'social_django',
