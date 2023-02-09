@@ -9,20 +9,20 @@
 <body>
     <p>{{uid}}</p>
     <p>{{token}}</p>
-    <form action="" class="form">
-        <button onclick="ActivateAccount()">Activate Account</button>
+    <form class="form">
+        <button id="activate" onclick="ActivateAccount(e)">Activate Account</button>
     </form>
 
     <script>
-        function ActivateAccount(e) {
+        document.querySelector("#activate").onclick = (e) =>{
             e.preventDefault();
-            fetch('auth/users/activation/', {
+            fetch('http://127.0.0.1:8000/auth/users/activation/', {
                 method: "POST",
-                body: JSON.stringify({"token": token, })
+                body: JSON.stringify({"token": "{{token}}", "uid": "{{uid}}"})
             })
-                .then()
-                .catch()
-        }
+            .then(response => response.json())
+            .catch(err => console.log(err))
+        } 
     </script>
 </body>
 </html>
