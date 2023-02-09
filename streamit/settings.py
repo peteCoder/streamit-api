@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from decouple import config
 import cloudinary_storage
+from datetime import timedelta  
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'rest_framework_simplejwt',
-    # 'django_rest_passwordreset',
     'oauth2_provider',
     'social_django',
     'drf_social_oauth2',
@@ -96,24 +96,24 @@ WSGI_APPLICATION = 'streamit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'D4imfMoVODfTck00VEWD',
-        'HOST': 'containers-us-west-43.railway.app',
-        'PORT': '6946',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'D4imfMoVODfTck00VEWD',
+#         'HOST': 'containers-us-west-43.railway.app',
+#         'PORT': '6946',
+#     }
+# }
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -183,35 +183,95 @@ AUTH_PASSWORD_VALIDATORS = [
 CSRF_TRUSTED_ORIGINS = ['https://web-production-93c3.up.railway.app']
 
 
-# REST_FRAMEWORK = {
-#     "EXCEPTION_HANDLER": "api.errors.api_exception_handler",
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication', 
-#     ],
-#     'TEST_REQUEST_RENDERER_CLASSES': [
-#         'rest_framework.renderers.MultiPartRenderer',
-#         'rest_framework.renderers.JSONRenderer',
-#         'rest_framework.renderers.TemplateHTMLRenderer'
-#     ]
-# }
-
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #     'rest_framework.authentication.TokenAuthentication',
-    # ],
+    "EXCEPTION_HANDLER": "api.errors.api_exception_handler",
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
         'drf_social_oauth2.authentication.SocialAuthentication',
     ],
+    'TEST_REQUEST_RENDERER_CLASSES': [
+        'rest_framework.renderers.MultiPartRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer'
+    ]
 }
 
 
 AUTHENTICATION_BACKENDS = [
+    # Others auth providers (e.g. Google, OpenId, etc)
+
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    
+    # Google OAuth2
+    'social_core.backends.google.GoogleOAuth2',
+
+
+    # drf_social_oauth2
     'drf_social_oauth2.backends.DjangoOAuth2',
+
+    # Django
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '931737201320768'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'f62bd1f74bb8e2f0a6215373a70bfdea'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, email'
+}
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-5r3sndc142b6jj8cklj1hu6fqu448kaq.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+ACTIVATE_JWT = True
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'JWK_URL': None,
+    'LEEWAY': 0,
+
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
 
 
 SIMPLE_JWT = {
