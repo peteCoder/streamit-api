@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from users.models import CustomUser as User
 from api.models import (
     Video, 
@@ -304,6 +304,12 @@ def home(request):
     
 @api_view(['GET', 'POST'])
 def activate_account(request, uid, token):
-    return Response({"uid": f"{uid}", "token": f"{token}"})
+    
+    return render(request, 'activate_account.html', {
+        "uid": uid,
+        "token": token
+    })
+    
+    # return Response({"uid": f"{uid}", "token": f"{token}"})
     
     
