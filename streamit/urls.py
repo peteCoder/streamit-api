@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from api.views import home
+from api.views import home, activate_account
 
 admin.site.site_header  =  "TSL Nigeria Administration"  
 admin.site.site_title  =  "TSL Nigeria"
@@ -11,7 +11,7 @@ admin.site.index_title  =  "DASHBOARD"
 
 urlpatterns = [
     path('', home, name='home'),
-    path('activate/<str:uid>/<str:token>/'),
+    path('activate/<str:uid>/<str:token>/', activate_account, name="activate-account"),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('user/', include('users.urls')),
