@@ -16,8 +16,11 @@
     <script>
         document.querySelector("#activate").onclick = (e) =>{
             e.preventDefault();
-            fetch('http://127.0.0.1:8000/auth/users/activation/', {
+            fetch('https://web-production-93c3.up.railway.app/auth/users/activation/', {
                 method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({"token": "{{token}}", "uid": "{{uid}}"})
             })
             .then(response => response.json())
