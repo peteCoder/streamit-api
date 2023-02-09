@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    "webpack_loader",
     'cloudinary',
     'cloudinary_storage',
     'users',
@@ -53,9 +54,16 @@ INSTALLED_APPS = [
     'social_django',
     'drf_social_oauth2',
     'api',
+    'frontend',
 ]
 
 
+WEBPACK_LOADER = {
+  "DEFAULT": {
+    "BUNDLE_DIR_NAME": "frontend/",
+    "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json")
+  }
+}
 
 
 MIDDLEWARE = [
@@ -63,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware', #add whitenoise
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -279,6 +288,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
+white_list = ['http://localhost:3000/browse', 'https://auth.expo.io/@Chriscodedev/tslstream']
+
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
@@ -291,6 +302,7 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': white_list,
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserCreateSerializers',
         'user': 'users.serializers.UserCreateSerializers',
@@ -334,7 +346,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'  # or any prefix you choose
 
 
-STATICFILE_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILE_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'frontend/static/')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'

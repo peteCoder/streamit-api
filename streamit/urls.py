@@ -10,7 +10,8 @@ admin.site.site_title  =  "TSL Nigeria"
 admin.site.index_title  =  "DASHBOARD"
 
 urlpatterns = [
-    path('', home, name='home'),
+    # path('/home', home, name='home'),
+    path("", include("frontend.urls")),
     path('activate/<str:uid>/<str:token>/', activate_account, name="activate-account"),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
@@ -23,7 +24,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
 
     # Oauth for social logins
-    path('oauth/', include('drf_social_oauth2.urls', namespace='drf'))
+    path('oauth/', include('drf_social_oauth2.urls', namespace='drf')),
+    
+    path('oauth/', include('djoser.social.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
