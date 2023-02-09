@@ -186,6 +186,7 @@ CSRF_TRUSTED_ORIGINS = ['https://web-production-93c3.up.railway.app']
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "api.errors.api_exception_handler",
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
         'drf_social_oauth2.authentication.SocialAuthentication',
