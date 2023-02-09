@@ -302,3 +302,8 @@ class DirectorViewSet(viewsets.ModelViewSet):
 def home(request):
     return Response({"details": "Welcome to Streamit API"})
     
+@api_view(['GET', 'POST'])
+def home(request, uid, token):
+    return Response({"uid": f"{uid}", "token": f"{token}"})
+    
+    

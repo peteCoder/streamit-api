@@ -11,6 +11,7 @@ admin.site.index_title  =  "DASHBOARD"
 
 urlpatterns = [
     path('', home, name='home'),
+    path('activate/<str:uid>/<str:token>/'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('user/', include('users.urls')),
