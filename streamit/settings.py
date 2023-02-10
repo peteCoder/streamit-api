@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'oauth2_provider',
     'social_django',
     'drf_social_oauth2',
@@ -248,6 +249,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
+    'openid'
 ]
 
 ACTIVATE_JWT = True
@@ -290,7 +292,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
-white_list = ['http://localhost:3000/browse', 'https://auth.expo.io/@Chriscodedev/tslstream']
+#  'https://auth.expo.io/@Chriscodedev/tslstream'
+white_list = ['http://localhost:3000/browse',]
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -305,6 +308,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': white_list,
+    
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserCreateSerializers',
         'user': 'users.serializers.UserCreateSerializers',
