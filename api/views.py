@@ -310,4 +310,20 @@ def activate_account(request, uid, token):
         "token": token
     })
     
-    
+
+def reset_password_confirm(request, uid, token):
+    return render(request, 'reset_password_confirm.html', {
+        "uid": uid,
+        "token": token
+    })
+
+
+def reset_password_email(request):
+    return render(request, 'reset_password_email.html', {})
+
+
+
+
+
+
+

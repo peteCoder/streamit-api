@@ -11,27 +11,6 @@
     {% extends "_base.html" %}
     {% load static %}
 
-        <p>{{uid}}</p>
-        <p>{{token}}</p>
-        <div class="message"></div>
-        <form class="form">
-            <button id="activate">Activate Account</button>
-        </form>
-
-        <form class="resend-activation-form">
-            <input type="text" id="email" class="">
-            <button id="resend-activation">Resend Activation Link</button>
-        </form>
-
-
-       
-
-        
-        
-
-
-        
-
         <!-- Change Password -->
         <form class="h-screen w-screen bg-black flex justify-center items-center text-center flex-col text-white px-6 static xl:relative">
             <div class="w-screen md:w-[523px] h-[317px] static xl:absolute xl:top-[219px] xl:left-[459px] bg-black flex flex-col text-left">
@@ -73,6 +52,34 @@
                 </div>
                 <div class="w-full text-center text-black h-[50px] overflow-hidden rounded-[5px]">
                     <button class="w-full border-none bg-[#80D200] h-full">Reset</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Change Password -->
+    <form class="h-screen w-screen bg-black flex justify-center items-center text-center flex-col text-white px-6 static xl:relative">
+        <div class="w-screen md:w-[523px] h-[317px] static xl:absolute xl:top-[219px] xl:left-[459px] bg-black flex flex-col text-left">
+            <div class="w-screen md:w-[515px] mx-auto flex flex-col gap-7 p-2">
+                <div class="flex flex-col gap-2">
+                    <h2 class="text-xl">Login with your new password</h2>
+                    <p class="text-sm text-gray-600">Change your password and login</p>
+                </div>
+
+                <div class="bg-[#121212] h-[50px] hover:outline-none overflow-hidden rounded-[5px]">
+                    <input autocomplete="off" id="password1" name="password1" type="password" class="w-full h-full border-none outline-none bg-transparent text-gray-600" placeholder="New Password" class="">
+                </div>
+
+                <div class="bg-[#121212] h-[50px] hover:outline-none overflow-hidden rounded-[5px]">
+                    <input autocomplete="off" id="password2" name="password2" type="password" class="w-full h-full border-none outline-none bg-transparent text-gray-600" placeholder="Confirm Password" class="">
+                </div>
+
+                <div class="bg-[#121212] h-[50px] hover:outline-none overflow-hidden rounded-[5px]">
+                    <input autocomplete="off" id="email" name="email" type="email" class="w-full h-full border-none outline-none bg-transparent text-gray-600" placeholder="Email" class="">
+                </div>
+                
+                <div class="w-full text-center text-black h-[50px] overflow-hidden rounded-[5px]">
+                    <button id="resetBtn" class="w-full border-none bg-[#80D200] h-full">Reset</button>
                 </div>
             </div>
         </div>
