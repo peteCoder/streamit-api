@@ -119,7 +119,7 @@
     <!-- Reset Password -->
     <div class="h-screen w-screen bg-black flex justify-center items-center text-center flex-col text-white px-6 static">
         <!-- Activated Account -->
-        <form id="activated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
+        <div id="activated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
             <div class="flex flex-col items-center justify-center gap-[27px] mx-6">
                 
                 <div class="flex flex-col items-center justify-center gap-4">
@@ -141,10 +141,10 @@
                 >Login</a>
             
             </div>
-        </form>
+        </div>
 
         <!-- Unactivated Account -->
-        <form id="unactivated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
+        <div id="unactivated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
             <div class="flex flex-col items-center justify-center gap-[27px] mx-6">
                 
                 <div class="flex flex-col items-center justify-center gap-4">
@@ -162,7 +162,7 @@
                     class="text-black text-sm md:text-lg  bg-[#80D200] hover:bg-[#89d214] px-[15px] py-[13px] md:px-[17px] md:py-[15px] w-full rounded-md "
                 >Activate</button>
             </div>
-        </form>
+        </div>
     </div>
 
     
@@ -183,7 +183,7 @@
             const options = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"token": "{{token}}", "uid": "{{uid}}"}),
+                body: JSON.stringify({token: "{{token}}", uid: "{{uid}}"}),
             };
 
             fetch('https://web-production-93c3.up.railway.app/auth/users/activation/', options)
