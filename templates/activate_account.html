@@ -118,8 +118,6 @@
 
     <!-- Reset Password -->
     <div class="h-screen w-screen bg-black flex justify-center items-center text-center flex-col text-white px-6 static">
-        <p class="text-white">{{uid}}</p>
-        <p class="text-white">{{token}}</p>
         <!-- Activated Account -->
         <form id="activated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
             <div class="flex flex-col items-center justify-center gap-[27px] mx-6">
@@ -135,12 +133,18 @@
                     </div>
                     
                 </div>
+
+                <a 
+                    href="#"
+                    id="activate-button"
+                    class="text-black text-sm md:text-lg inline-block  bg-[#80D200] hover:bg-[#89d214] px-[15px] py-[13px] md:px-[17px] md:py-[15px] w-full rounded-md "
+                >Login</a>
             
             </div>
         </form>
 
-         <!-- Unactivated Account -->
-         <form id="unactivated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
+        <!-- Unactivated Account -->
+        <form id="unactivated" class="bg-[#0A0A0B] w-full h-[350px] md:w-[500px] md:h-[352px] flex-col flex items-center justify-center">
             <div class="flex flex-col items-center justify-center gap-[27px] mx-6">
                 
                 <div class="flex flex-col items-center justify-center gap-4">
@@ -186,7 +190,7 @@
                     response.json()
                     if (response.status === 204){
                         unactivated.style.display = "none"
-                        activated.style.display = "block"
+                        activated.style.display = "flex"
                     } else {
                         comnsole.log(response.status)
                         document.querySelector("#message-unactivated").innerHTML = "We encountered a problem activating your account"
