@@ -55,8 +55,14 @@ INSTALLED_APPS = [
     'social_django',
     'drf_social_oauth2',
     'api',
-    'frontend',
+    'compressor',
 ]
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 
 WEBPACK_LOADER = {
