@@ -173,7 +173,8 @@
         const activated = document.querySelector("#activated");
         const unactivated = document.querySelector("#unactivated");
 
-        unactivated.style.display = "none"
+        activated.style.display = "none"
+        unactivated.style.display = "flex"
 
         
         // Activate Account
@@ -194,6 +195,7 @@
                     } else {
                         comnsole.log(response.status)
                         document.querySelector("#message-unactivated").innerHTML = "We encountered a problem activating your account"
+                        unactivated.style.display = "flex"
                     }
                 })
                 .then(response => console.log(response))
