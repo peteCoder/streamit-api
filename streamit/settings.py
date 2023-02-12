@@ -256,6 +256,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-ogvmjrurbgea3nj2sdsrlv0n18vnbtie.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
+
+
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
