@@ -1,4 +1,5 @@
-from rest_framework.response import Response 
+from rest_framework.response import Response
+from django.views import View
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -322,6 +323,13 @@ def reset_password_email(request):
     return render(request, 'reset_password_email.html', {})
 
 
+class RedirectSocial(View):
+
+    def get(self, request, *args, **kwargs):
+        code, state = str(request.GET['code']), str(request.GET['state'])
+        json_obj = {'code': code, 'state': state}
+        print(json_obj)
+        return JsonResponse(json_obj)
 
 
 

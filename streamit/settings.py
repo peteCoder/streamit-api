@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'corsheaders',
     "webpack_loader",
     'cloudinary',
@@ -99,6 +100,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
@@ -248,8 +250,11 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 # Google configuration
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-5r3sndc142b6jj8cklj1hu6fqu448kaq.apps.googleusercontent.com'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-522feng3uud7h8gvc936133biv5s4k61.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-ogvmjrurbgea3nj2sdsrlv0n18vnbtie.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
@@ -276,7 +281,7 @@ SIMPLE_JWT = {
     'JWK_URL': None,
     'LEEWAY': 0,
 
-    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
@@ -295,11 +300,11 @@ SIMPLE_JWT = {
 
 
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
 }
 
 #  'https://auth.expo.io/@Chriscodedev/tslstream'
-white_list = ['http://localhost:3000/browse',]
+white_list = ['http://localhost:8000/api/profile',]
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
