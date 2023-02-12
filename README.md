@@ -84,12 +84,12 @@ Every successfully request has a status code of 200.
 }
 ```
 
-# GET, POST - /video/
+# GET, POST - /videos/
 
 The video object can be queried via a GET request using the endpoints below the endpoint below:
 
 ```
-{Base_Url}/video/
+{Base_Url}/videos/
 ```
 
 The above gives you the array (or list) of videos and their respected a respective `id`, `title`, `thumbnail`, `author`, `category`,`likes`, `date_uploaded`, `last_modified`, etc. A typical response from a GET request is as follows:
@@ -163,7 +163,7 @@ The goal of every commercial application is to serve and satisfy users. How we k
 are satisfied with our content is when they give us feedback on how our app benefits them.
 The most common, viable and effective way to get users' feedback is when they `like` our video posts or add a few of them to their list of favourites.
 
-## POST /video/:id/likes/
+## POST /videos/:id/likes/
 
 Here, you are only required to send the `user_id` as follows:
 
@@ -200,7 +200,7 @@ an `invalid video and user id` response is sent back.
 
 A video can also be added to users' `favourites` using the same convention.
 
-## POST /video/:id/favourites/
+## POST /videos/:id/favourites/
 
 Here, the users can add videos to their list of `favourites`. Such videos would be seen in their profile,
 although the client side can use this however way they wish. The only difference that exists between adding to `favourites` and
@@ -227,7 +227,7 @@ The following responses are gotten from our API depending on the state of the us
 ```
 # Other Important Endpoints
 
-## POST, GET /actor/
+## POST, GET /actors/
 Expected Request Body:
 ```json
 {
@@ -253,7 +253,7 @@ The `_videos` attribute is not modifiable, meaning you cannot change its content
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
-## GET, PUT, PATCH, DELETE /actor/:id/
+## GET, PUT, PATCH, DELETE /actors/:id/
 You can perform the above http method operations to an individual Actor instance given the actor `id` specified in the endpoint or url.
 
 ```json
@@ -264,7 +264,7 @@ You can perform the above http method operations to an individual Actor instance
   }
 ```
 
-## POST, GET /director/
+## POST, GET /directors/
 Expected Request Body:
 ```json
 {
@@ -290,7 +290,7 @@ The `_videos` attribute is not modifiable, meaning you cannot change its content
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
-## GET, PUT, PATCH, DELETE /director/:id/
+## GET, PUT, PATCH, DELETE /directors/:id/
 You can perform the above http method operations to an individual Director instance given the actor `id` specified in the endpoint or url.
 
 ```json
@@ -301,7 +301,7 @@ You can perform the above http method operations to an individual Director insta
   }
 ```
 
-## POST, GET /mood/
+## POST, GET /moods/
 Expected Request Body:
 ```json
 {
@@ -324,7 +324,7 @@ The `_videos` attribute is not modifiable, meaning you cannot change its content
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
-## GET, PUT, PATCH, DELETE /mood/:id/
+## GET, PUT, PATCH, DELETE /moods/:id/
 You can perform the above http method operations to an individual Mood instance given the actor `id` specified in the endpoint or url.
 
 ```json
@@ -335,7 +335,7 @@ You can perform the above http method operations to an individual Mood instance 
 ```
 
 
-## POST, GET /playlist/
+## POST, GET /playlists/
 Expected Request Body:
 ```json
 {
@@ -357,7 +357,7 @@ The `_videos` attribute is not modifiable, meaning you cannot change its content
 Note that when sending a POST request to a upload an image or video file, it is mandatory to use a form data instance. Since images are also uploaded via a POST request, the `Content-Type` header must be `multipart/form-data` as opposed to `application/json`.
 
 
-## GET, PUT, PATCH, DELETE /playlist/:id/
+## GET, PUT, PATCH, DELETE /playlists/:id/
 You can perform the above http method operations to an individual PlatList instance given the actor `id` specified in the endpoint or url.
 
 ```json

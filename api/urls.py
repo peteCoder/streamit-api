@@ -25,13 +25,13 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register(r'actor', ActorViewSet, basename='actor')
-router.register(r'playlist', PlayListViewSet, basename='playlist')
-router.register(r'mood', MoodViewSet, basename='mood')
-router.register(r'director', DirectorViewSet, basename='director')
-router.register(r'genre', GenreViewSet, basename='genre')
-router.register(r'video', VideoViewSet, basename='video')
-router.register(r'category', VideoCategoryViewSet, basename='category')
+router.register(r'actors', ActorViewSet, basename='actor')
+router.register(r'playlists', PlayListViewSet, basename='playlist')
+router.register(r'moods', MoodViewSet, basename='mood')
+router.register(r'directors', DirectorViewSet, basename='director')
+router.register(r'genres', GenreViewSet, basename='genre')
+router.register(r'videos', VideoViewSet, basename='video')
+router.register(r'categories', VideoCategoryViewSet, basename='category')
 
 urlpatterns = [
     path('user/', user_list, name='user_list'),
@@ -43,8 +43,8 @@ urlpatterns = [
     # path('video/<int:pk>/', video_detail, name='video_detail'),
 
     # Likes
-    path('video/<int:pk>/likes/', like_video, name='like_video'),
-    path('video/<int:pk>/favourites/', favourite_video, name='favourite_video'),
+    path('videos/<int:pk>/likes/', like_video, name='like_video'),
+    path('videos/<int:pk>/favourites/', favourite_video, name='favourite_video'),
 
     # path('video/category/', video_category_list, name='video_category_list'),
     # path('video/category/<int:pk>/', video_category_detail, name='video_category_detail'),
