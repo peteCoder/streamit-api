@@ -323,13 +323,26 @@ def reset_password_email(request):
     return render(request, 'reset_password_email.html', {})
 
 
-class RedirectSocial(View):
+# class RedirectSocial(View):
 
-    def get(self, request, *args, **kwargs):
-        code, state = str(request.GET['code']), str(request.GET['state'])
+#     def get(self, request):
+#         code, state = str(request.GET['code']), str(request.GET['state'])
+#         json_obj = {'code': code, 'state': state}
+#         print(json_obj)
+#         return JsonResponse(json_obj)
+
+
+@api_view(['GET'])
+def redirect_socials(request):
+    print(request)
+    if (request.GET.get('code')) and str(request.GET.get('state')):
+        code, state = str(request.GET.get('code')), str(request.GET.get('state'))
         json_obj = {'code': code, 'state': state}
         print(json_obj)
-        return JsonResponse(json_obj)
+        return Response(json_obj)
+    else:
+        return Response({'code': '', 'state': ''})
+    
 
 
 

@@ -28,7 +28,7 @@ urlpatterns = [
     # Oauth for social logins
     path('oauth/', include('drf_social_oauth2.urls', namespace='drf')),
     
-    path('oauth/', include('djoser.social.urls')),
+    path('social/auth/', include('djoser.social.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

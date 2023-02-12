@@ -21,7 +21,7 @@ from .views import (
     VideoCategoryViewSet,
     VideoViewSet,
     
-    RedirectSocial
+    redirect_socials
 )
 
 router = DefaultRouter()
@@ -37,8 +37,8 @@ urlpatterns = [
     path('user/', user_list, name='user_list'),
     path('user/<int:pk>/', user_detail, name='user_detail'),
 
-    path('profile/', profile_list, name='profile_list'),
-    path('profile/<int:pk>/', profile_detail, name='profile_detail'),
+    path('profiles/', profile_list, name='profile_list'),
+    path('profiles/<int:pk>/', profile_detail, name='profile_detail'),
     # path('video/', video_list, name='video_list'),
     # path('video/<int:pk>/', video_detail, name='video_detail'),
 
@@ -49,6 +49,6 @@ urlpatterns = [
     # path('video/category/', video_category_list, name='video_category_list'),
     # path('video/category/<int:pk>/', video_category_detail, name='video_category_detail'),
     
-    path('code/state/', RedirectSocial.as_view(), name="social")
+    path('profile/', redirect_socials, name="social")
 ]
 urlpatterns += router.urls

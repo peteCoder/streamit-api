@@ -16,159 +16,8 @@ Note that every endpoint must have an ending slash. This shows that it is an abs
 
 This API gives you access to create and authenticate users, add and remove videos, categories, like videos, add videos to favourites, list and display videos and categories, user profiles and details, et cetera.
 
-# POST, GET - /user/
 
-Here, you can retrieve, create, and delete users from the database. Although you should note that each user is conected to a profile object i.e when a user is deleted, the profile will be deleted automatically. When a user is created on the otherhand, a profile is created too.
-
-The required fields necessary to create a user are `email`, `password` and `password2`.
-The `password2` field is used to compare the users' passwords to see if they match.
-
-```
-{Base_Url}/user/
-```
-
-For detail view:
-
-```
-{Base_Url}/user/{id}/
-```
-
-```json
-{
-  "email": "validemail@gmail.com",
-  "password": "string",
-  "password2": "string"
-}
-```
-
-If `password` and `password2` does not match, an exception is raised:
-
-```json
-{
-  "password": "Password must match"
-}
-```
-
-Creating a user that already exist, will give you the following error:
-
-```json
-{ "email": ["user with this email already exists."] }
-```
-
-You will get this success message when a user is created:
-
-```json
-{
-  "email": "sarah@gmail.com",
-  "is_superuser": false,
-  "is_active": false,
-  "date_joined": "2023-01-20T13:12:00.268410Z",
-  "last_login": null
-}
-```
-
-
-# GET, DELETE - /user/:id/
-
-This endpoint retrieves or deletes a single user with a declared id.
-Here, you must ensure you send a request with the user id from the client side.
-
-Although deleting a user might come in handy to a site admin or to a client user who wishes to delete his user account, but this should be used with caution.
-This is because, when a user instance is deleted, the profile associated with it is also deleted automatically. This means that the user cannot log into his or her account until he creates another user instance.
-
-```
-{Base_Url}/user/
-```
-
-For detail view:
-
-```
-{Base_Url}/user/{id}/
-```
-
-The response returned when a user is successfully deleted is as folllows:
-
-```json
-{
-  "details": "user {id} was successfully deleted"
-}
-```
-
-A GET request on the other hand fetches you that single user as follows:
-
-```json
-{
-  "email": "user@gmail.com",
-  "is_superuser": false,
-  "is_active": true,
-  "date_joined": "2023-01-21T05:45:39.075086Z"
-}
-```
-
-
-
-# POST /user/auth-token/
-
-The above is used to authenticate existing users. Please note that this endpoint does not allow a GET request. After a user has been created, this endpoint is used to retrieve the user's `Auth Token` that is used to authenticate the user. The client do not need to authenticate before accessing this endpoint.
-
-```
-{Base_Url}/user/auth-token/
-```
-
-Inorder to make a request, the user must send in a json object. He should ensure that these json objects are properly stringified in the following format, having the following keys and values:
-
-```json
-{
-  "username": "validemail@gmail.com",
-  "password": "validpassword"
-}
-```
-
-Keys: `username` and `password`.
-The `username` key requires the email of an existing user.
-The `password` key requires a valid password.
-
-Both `username` and `password` feilds are required.
-If a request is sent without the above two fields, a response is returned telling the user that both fields are required.
-
-## Expected Response
-
-A JWT Token will be generated as a result of your request in this format:
-
-```json
-{
-  "token": "afbf91b454b50cc56637d34b77133fef3c6604da",
-  "user_id": 1,
-  "email": "peter@gmail.com"
-}
-```
-
-Keys: token, user_id, email.
-
-The above token example should be included in the `Authorization` header in order to make subsequent requests. Without the token given, an exception of `UnAuthorized user` will be raised.
-
-If either the password or username (email) entered is inaccurate, a `non_field_error` is raised.
-
-`{'non_field_errors': ['Unable to log in with provided credentials.']}`
-
-You can customize the error however way you would wish in any client-side application like React, Angular or Vue.
-
-
-# PUT - /user/change-password/
-
-Here, the password can be changed via the above endpoint.
-This change must be made via http headers - i.e. the `Authorization` header.
-The parameters that should be provided are as follows:
-
-####
-
-```json
-{ "old_password": "password", "new_password": "password2" }
-```
-
-#### old_password: string; new_password: string
-
-# GET - /profile/
+# GET - /profiles/
 
 The fields existing for uploading a profile are `username`, `first_name`, `last_name`, `profile_photo`, `bio`, `country`, `gender` and `phone_number`. None of these fields are required. It is advisable to only make queries with `user_id`, not modify it. You can query the user profile via the `user_id` if your intention is to get the user's profile details. `user_details` is automatically generated from the user object. This is because a Profile object is created alongside a User object by default. Hence, the user_id and profile_id are the same.
 Do not send a POST request to the profile object. POST request is not permitted. You can only send a POST request to the user, i.e. WHEN YOUR INTENTION IS TO CREATE A USER. Use a PUT request instead.
@@ -178,17 +27,17 @@ This means that you can use the user_id or profile_id interchangeably. We do thi
 For list view:
 
 ```
-{Base_Url}/profile/
+{Base_Url}/profiles/
 ```
 
 The above request will fetch you all the user profiles in the database.
 
-# PUT, GET, DELETE - /profile/:id/
+# PUT, GET, DELETE - /profiles/:id/
 
 For detail view:
 
 ```
-{Base_Url}/profile/{id}/
+{Base_Url}/profiles/{id}/
 ```
 
 ## Request via PUT
