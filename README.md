@@ -214,6 +214,7 @@ The expected request can be send via a `profile_id`.
 }
 ```
 
+
 The following responses are gotten from our API depending on the state of the user's addition to their list of favourites:
 
 ```json
