@@ -184,7 +184,7 @@ class Video(models.Model):
     )
     _genres = models.ManyToManyField(Genre, related_name='genres_videos', blank=True)
     _moods = models.ManyToManyField(Mood, related_name='videos', blank=True)
-    video_link = models.URLField(max_length=300, blank=False, null=True)
+    video_link = models.CharField(max_length=300, blank=False, null=True)
     description = models.CharField(max_length=150, blank=True, null=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='videos_uploaded')
     date_uploaded = models.DateTimeField(auto_now_add=True)
@@ -239,7 +239,7 @@ class Video(models.Model):
         return category
 
     def __str__(self):
-        return self.author.user.email
+        return self.title
 
 
 @receiver(post_save, sender=User)

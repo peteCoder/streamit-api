@@ -250,10 +250,10 @@ def favourite_video(request, *args, **kwargs):
             profile = get_object_or_404(Profile, pk=int(profile_id))
             if hasId(video.favourites.all(), profile_id):
                 video.favourites.remove(profile)
-                return Response({"detail": f"{profile.user.email} removed {video.title} from list"})
+                return Response({"detail": f"{profile.user.email} removed {video.title} from list", "liked": False})
             else:
                 video.favourites.add(profile)
-                return Response({"detail": f"{profile.user.email} added {video.title} to list"})
+                return Response({"detail": f"{profile.user.email} added {video.title} to list", "liked":True})
         except:
             return Response({"details": "Invalid video_id and profile_id"})
     

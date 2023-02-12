@@ -114,24 +114,24 @@ WSGI_APPLICATION = 'streamit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'D4imfMoVODfTck00VEWD',
-#         'HOST': 'containers-us-west-43.railway.app',
-#         'PORT': '6946',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'D4imfMoVODfTck00VEWD',
+        'HOST': 'containers-us-west-43.railway.app',
+        'PORT': '6946',
+    }
+}
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -253,7 +253,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1039516402443-ogvmjrurbgea3nj2sdsrlv0n18vnbtie.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 
