@@ -1,3 +1,5 @@
+import requests as py_requests
+import json
 from rest_framework.response import Response
 from django.views import View
 from rest_framework import status
@@ -334,11 +336,24 @@ def reset_password_email(request):
 
 @api_view(['GET'])
 def redirect_socials(request):
-    print(request)
     if (request.GET.get('code')) and str(request.GET.get('state')):
         code, state = str(request.GET.get('code')), str(request.GET.get('state'))
-        json_obj = {'code': code, 'state': state}
-        print(json_obj)
+        json_obj = {"code": code, "state": state}
+        scheme = request.is_secure() and "https" or "http"
+        host = f'{scheme}://{request.get_host()}/social/auth/o/google-oauth2/'
+        
+        print(host)
+        
+        # path = f'{host}/social/auth/o/google-oauth2/'
+        
+        # url = request.
+        
+        
+        response = py_requests.post(host, data=json_obj)
+        
+        print(response.json())
+        
+        # print(json_obj)
         return Response(json_obj)
     else:
         return Response({'code': '', 'state': ''})

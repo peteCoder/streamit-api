@@ -114,26 +114,31 @@ WSGI_APPLICATION = 'streamit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'D4imfMoVODfTck00VEWD',
-        'HOST': 'containers-us-west-43.railway.app',
-        'PORT': '6946',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'D4imfMoVODfTck00VEWD',
+#         'HOST': 'containers-us-west-43.railway.app',
+#         'PORT': '6946',
+#     }
+# }
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -306,7 +311,13 @@ SIMPLE_JWT = {
 }
 
 #  'https://auth.expo.io/@Chriscodedev/tslstream'
-white_list = ['http://localhost:8000/api/profile',]
+white_list = [
+    'http://localhost:8000/api/profile',
+    'http://localhost:8000/social/auth/o/google-oauth2',
+    'https://web-production-93c3.up.railway.app/api/profile',
+    'https://web-production-93c3.up.railway.app/social/auth/o/google-oauth2',
+    
+]
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
