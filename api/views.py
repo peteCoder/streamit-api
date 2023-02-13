@@ -31,6 +31,8 @@ from .serializers import (
     DirectorSerializer
 )
 
+from .utils import all_videos
+
 
 from rest_framework import viewsets
 
@@ -240,7 +242,7 @@ def like_video(request, *args, **kwargs):
 
 # Favourites functionality
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def favourite_video(request, *args, **kwargs):
 
     profile_id = request.data.get('profile_id', None)
@@ -260,6 +262,24 @@ def favourite_video(request, *args, **kwargs):
             return Response({"details": "Invalid video_id and profile_id"})
     
     return Response({"details": "Profile Id or Video Id cannot be null"})
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def top_trending(request):
+    if request.method == 'GET':
+        videos = Video.objects.all()
+        
+        video_list = all_videos(videos)
+        
+        def get_likes(video):
+            return video.get("likes")
+        
+        video_list.sort(key=get_likes, reverse=True)
+        
+        return Response(video_list)
+    else:
+        return Response([])
 
 
 class VideoViewSet(viewsets.ModelViewSet):

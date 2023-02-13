@@ -6,6 +6,7 @@ from .views import (
     user_detail, 
     profile_detail, 
     profile_list, 
+    top_trending, 
     # video_category_detail, 
     # video_category_list, 
     # video_detail, 
@@ -45,6 +46,8 @@ urlpatterns = [
     # Likes
     path('videos/<int:pk>/likes/', like_video, name='like_video'),
     path('videos/<int:pk>/favourites/', favourite_video, name='favourite_video'),
+    
+    path('videos/trending/', top_trending, name='top_trending'),
 
     # path('video/category/', video_category_list, name='video_category_list'),
     # path('video/category/<int:pk>/', video_category_detail, name='video_category_detail'),
