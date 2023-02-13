@@ -228,10 +228,10 @@ def like_video(request, *args, **kwargs):
             user = get_object_or_404(User, pk=user_id)
             if hasId(video.video_like.all(), user_id):
                 video.video_like.remove(user)
-                return Response({"detail": f"{user.email} unliked {video.title}"})
+                return Response({"detail": f"{user.email} unliked {video.title}", "liked": False})
             else:
                 video.video_like.add(user)
-                return Response({"detail": f"{user.email} liked {video.title}"})
+                return Response({"detail": f"{user.email} liked {video.title}", "liked": True})
         except:
             return Response({"details": "Invalid video_id and user_id"})
     
@@ -252,10 +252,10 @@ def favourite_video(request, *args, **kwargs):
             profile = get_object_or_404(Profile, pk=int(profile_id))
             if hasId(video.favourites.all(), profile_id):
                 video.favourites.remove(profile)
-                return Response({"detail": f"{profile.user.email} removed {video.title} from list", "liked": False})
+                return Response({"detail": f"{profile.user.email} removed {video.title} from list", "favourites": False})
             else:
                 video.favourites.add(profile)
-                return Response({"detail": f"{profile.user.email} added {video.title} to list", "liked":True})
+                return Response({"detail": f"{profile.user.email} added {video.title} to list", "favourites":True})
         except:
             return Response({"details": "Invalid video_id and profile_id"})
     
