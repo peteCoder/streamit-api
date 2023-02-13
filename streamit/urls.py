@@ -29,6 +29,10 @@ urlpatterns = [
     path('oauth/', include('drf_social_oauth2.urls', namespace='drf')),
     
     path('social/auth/', include('djoser.social.urls')),
+    
+    
+    # Dummy Account for social test
+    path('accounts/', include('accounts.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

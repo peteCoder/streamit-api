@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',
     'djoser',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -229,6 +230,7 @@ AUTHENTICATION_BACKENDS = [
     # 'social_core.backends.facebook.FacebookAppOAuth2',
     # 'social_core.backends.facebook.FacebookOAuth2',
     'api.facebook.CustomFacebookOAuth2',
+    # 'api.google.GoogleOAuth2',
     
     # Google OAuth2
     'social_core.backends.google.GoogleOAuth2',
