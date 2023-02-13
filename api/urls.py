@@ -49,6 +49,9 @@ urlpatterns = [
     # path('video/category/', video_category_list, name='video_category_list'),
     # path('video/category/<int:pk>/', video_category_detail, name='video_category_detail'),
     
-    path('profile/', redirect_socials, name="social")
+    path('profile/', redirect_socials, name="social"),
+    
+    path('temporary-redirect-for-testing/', redirect_socials, name="social"),
+    
 ]
 urlpatterns += router.urls

@@ -226,8 +226,9 @@ AUTHENTICATION_BACKENDS = [
     # Others auth providers (e.g. Google, OpenId, etc)
 
     # Facebook OAuth2
-    'social_core.backends.facebook.FacebookAppOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.facebook.FacebookAppOAuth2',
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    'api.facebook.CustomFacebookOAuth2',
     
     # Google OAuth2
     'social_core.backends.google.GoogleOAuth2',
@@ -313,9 +314,12 @@ SIMPLE_JWT = {
 #  'https://auth.expo.io/@Chriscodedev/tslstream'
 white_list = [
     'http://localhost:8000/api/profile',
+    'http://localhost:8000/api/temporary-redirect-for-testing/',
     'http://localhost:8000/social/auth/o/google-oauth2',
     'https://web-production-93c3.up.railway.app/api/profile',
     'https://web-production-93c3.up.railway.app/social/auth/o/google-oauth2',
+    'https://web-production-93c3.up.railway.app/api/temporary-redirect-for-testing/',
+    
     
 ]
 

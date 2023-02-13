@@ -350,8 +350,9 @@ def redirect_socials(request):
         
         
         response = py_requests.post(host, data=json_obj)
+        my_session = request.session._get_or_create_session_key()
         
-        print(response.json())
+        print("MY_SESSION ", my_session)
         
         # print(json_obj)
         return Response(json_obj)
