@@ -237,6 +237,15 @@ class Video(models.Model):
         }
         
         return category
+    
+    @property
+    def more_like_this(self):
+        video = self
+        videos_under_category = video.category.videos.all()
+        videos_excluding_main_video = videos_under_category.exclude(id=video.id)
+        return all_videos(videos_excluding_main_video)
+        
+        
 
     def __str__(self):
         return self.title

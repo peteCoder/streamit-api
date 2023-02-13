@@ -265,7 +265,7 @@ def favourite_video(request, *args, **kwargs):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def top_trending(request):
     if request.method == 'GET':
         videos = Video.objects.all()
