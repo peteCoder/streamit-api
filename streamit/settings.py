@@ -311,6 +311,9 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
 }
 
+
+
+
 #  'https://auth.expo.io/@Chriscodedev/tslstream'
 white_list = [
     'http://localhost:8000/api/profile',
